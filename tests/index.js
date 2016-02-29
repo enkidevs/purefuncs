@@ -16,12 +16,12 @@ test('can handle simple example', async t => {
     }
   `
   const output = `
-    export const foo = () => (x) => {
+    export const foo = ({}) => (x) => {
       function bla(y) {
         return x + y;
       }
     }
-    export const foo$bla = () => (y) => {
+    export const foo$bla = ({}) => (y) => {
       return x + y;
     }
   `
