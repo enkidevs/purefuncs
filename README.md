@@ -48,7 +48,7 @@ $ purefuncs src/example.js -o test/purefuncs/example.js
 Output:
 ```javascript
 // file: test/purefuncs/example.js
-export const foo = (asd, math, z) => () => {
+export const foo = ({asd, math, z}) => () => {
   const x = 3 + z;
   function bla() {
     const f = 5 + asd;
@@ -59,12 +59,12 @@ export const foo = (asd, math, z) => () => {
   }
 }
 
-export const foo$bla = (asd, x) => () => {
+export const foo$bla = ({asd, x}) => () => {
   const f = 5 + asd;
   return x + 1;
 }
 
-export const foo$tada = (math, x) => () => {
+export const foo$tada = ({math, x}) => () => {
   return x + math.sin(x);
 }
 ```

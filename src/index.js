@@ -132,9 +132,9 @@ export default (inputCode, options = {}) => {
   function dumpCode (res) {
     return Object.keys(res).map((id) => {
       const r = res[id]
-      return `export const ${r.path} = (${
+      return `export const ${r.path} = ({${
         r.externalVars.join(', ')
-      }) => (${
+      }}) => (${
         (r.params || []).join(', ')
       }) => ${
         r.code
