@@ -4,17 +4,17 @@
   "description": "Extract pure functions from javascript code for unit testing",
   "main": "build/index.js",
   "jsnext:main": "src/index.js",
+  "bin": "build/bin.js",
   "scripts": {
     "test": "make lint test",
-    "prepublish": "make clean build"
+    "prepublish": "make clean build",
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/enkidevs/purefuncs"
   },
   "homepage": "https://github.com/enkidevs/purefuncs",
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Bruno Marnette <marnette.bruno@gmail.com>",
   "files": [
     "build/",
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "babel-traverse": "^6.5.0",
-    "babylon": "^6.5.0"
+    "babylon": "^6.5.0",
+    "commander": "^2.9.0"
   }
 }
