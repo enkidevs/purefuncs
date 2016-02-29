@@ -7,7 +7,7 @@
   "bin": "build/bin.js",
   "scripts": {
     "test": "make lint test",
-    "prepublish": "make clean build",
+    "prepublish": "make clean build"
   },
   "repository": {
     "type": "git",
