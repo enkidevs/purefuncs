@@ -1,7 +1,21 @@
-function f1() {}
+const a = 0;
 
-var f2 = function() {}
+function f1(x) {
+  return a + x;
+}
 
-var object = {
-  f3() {}
+var f2 = function(x) {
+  return a + x;
+}
+
+var o1 = {
+  f(x) {
+    return a + x;
+  }
+}
+
+var o2 = {
+  f(x) {
+    return a + x;
+  }
 }

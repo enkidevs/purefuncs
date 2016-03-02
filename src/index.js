@@ -40,18 +40,21 @@ export default (inputCode, options = {}) => {
 
   function isCodePoint ({node}) {
     return node.type === 'FunctionDeclaration' ||
+           node.type === 'ObjectMethod' ||
           (node.type === 'VariableDeclarator' &&
            node.init.type === 'FunctionExpression')
   }
 
   function codeForCodePoint (inputCode, {node}) {
-    const start = (node.body || node.init).start
-    const end = (node.body || node.init).end
-    return inputCode.slice(start, end)
+    const body = node.body ||
+                 node.init.body
+    return inputCode.slice(body.start, body.end)
   }
 
   function paramForCodePoint ({node}) {
-    return (node.params || node.init.params).map(({name}) => name)
+    const params = node.params ||
+                   node.init.params
+    return params.map(({name}) => name)
   }
 
   function isVarDeclaration ({node}) {
@@ -64,7 +67,10 @@ export default (inputCode, options = {}) => {
     return node.type === 'Identifier'
   }
 
-  function pointName ({node}) {
+  function pointName ({node}, topLevelDeclaration) {
+    if (node.type === 'ObjectMethod') {
+      return topLevelDeclaration + '$' + node.key.name
+    }
     return node.id.name
   }
 
@@ -91,11 +97,14 @@ export default (inputCode, options = {}) => {
   }
 
   const result = {}
+  let depth = 0
+  let topLevelDeclaration = null
 
   traverse(ast, {
     enter (path) {
+      depth++
       if (isCodePoint(path)) {
-        const name = pointName(path)
+        const name = pointName(path, topLevelDeclaration)
         codePointHeap.push(name)
         const id = pathString(codePointHeap)
         result[id] = {
@@ -106,6 +115,9 @@ export default (inputCode, options = {}) => {
         }
       }
       if (isVarDeclaration(path)) {
+        if (depth === 3) {
+          topLevelDeclaration = variableName(path)
+        }
         freeVariables.push({
           varName: variableName(path),
           definedIn: pathString(codePointHeap)
@@ -119,6 +131,7 @@ export default (inputCode, options = {}) => {
       }
     },
     exit (path) {
+      depth--
       if (isCodePoint(path)) {
         const id = pathString(codePointHeap)
         freeVariables = freeVariables.filter(
