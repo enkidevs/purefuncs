@@ -4,19 +4,22 @@ const program = require('commander')
 const fs = require('fs')
 import purify from './'
 
-console.log(purify)
-
 let inputFilename
 
 program
   .arguments('<file>')
   .option('-o, --output <target>', 'output file name')
+  .option('-d, --debug', 'debug mode')
   .action(function (x) { inputFilename = x })
   .parse(process.argv)
 
 fs.readFile(inputFilename, 'utf8', (err, data) => {
   if (err) throw err
-  const result = purify(data)
+  const options = {}
+  if (program.debug) {
+    options.debug = true
+  }
+  const result = purify(data, options)
   if (!program.output) {
     console.log(result)
   } else {

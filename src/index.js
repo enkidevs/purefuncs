@@ -143,5 +143,9 @@ export default (inputCode, options = {}) => {
     })
   }
 
+  if (options.debug) {
+    return result
+  }
+
   return dumpCode(result).join('\n')
 }
