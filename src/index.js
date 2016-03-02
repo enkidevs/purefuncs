@@ -38,32 +38,32 @@ export default (inputCode, options = {}) => {
     return pathStr2.slice(0, pathStr1.length) === pathStr1
   }
 
-  function isCodePoint (path) {
-    return path.node.type === 'FunctionDeclaration'
+  function isCodePoint ({node}) {
+    return node.type === 'FunctionDeclaration'
   }
 
-  function isVarDeclaration (path) {
-    return path.node.type === 'VariableDeclarator' ||
-           path.node.type === 'ImportSpecifier' ||
-           path.node.type === 'ImportDefaultSpecifier'
+  function isVarDeclaration ({node}) {
+    return node.type === 'VariableDeclarator' ||
+           node.type === 'ImportSpecifier' ||
+           node.type === 'ImportDefaultSpecifier'
   }
 
-  function isIdentifier (path) {
-    return path.node.type === 'Identifier'
+  function isIdentifier ({node}) {
+    return node.type === 'Identifier'
   }
 
-  function pointName (path) {
-    return path.node.id.name
+  function pointName ({node}) {
+    return node.id.name
   }
 
-  function variableName (path) {
-    return (path.node.id ||
-            path.node.imported ||
-            path.node.local).name
+  function variableName ({node}) {
+    return (node.id ||
+            node.imported ||
+            node.local).name
   }
 
-  function identifierName (path) {
-    return path.node.name
+  function identifierName ({node}) {
+    return node.name
   }
 
   function externalVars (freeVars, usedVars) {
