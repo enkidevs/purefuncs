@@ -1,6 +1,6 @@
 {
   "name": "purefuncs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extract pure functions from javascript code for unit testing",
   "main": "build/index.js",
   "jsnext:main": "src/index.js",
