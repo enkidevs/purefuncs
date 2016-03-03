@@ -7,9 +7,11 @@ const examples =
   fs.readFileSync('./examples.md', 'utf8')
   .split('##').slice(1)
   .map((block) => {
-    const name = block.split('\n')[0].trim();
-    const bits = block.split('```');
-    return {name, input: bits[1], output: bits[3]}
+    const name = block.split('\n')[0].trim()
+    const bits = block.split('```')
+    const input = bits[1].replace(/^js/,'')
+    const output = bits[3].replace(/^js/,'')
+    return {name, input, output}
   })
 
 function noIndent (str) {
