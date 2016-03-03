@@ -1,3 +1,7 @@
+# Working Examples
+
+Below is a list of *tested* examples of inputs and output.
+
 ## Basic Function Declaration
 
 Input:
@@ -167,5 +171,60 @@ Output:
 ```js
 export const foo = ({}) => (x, {y}, [z]) => {
   return x + y + z;
+}
+```
+
+# Not Working Yet!
+
+Below is a list of examples of inputs for which the output is not
+yet the desired one.
+
+## Object properties are sometimes confused with used variables
+
+Input:
+```js
+var a = 1;
+function f(x) {
+  return {a: 3, x}
+}
+```
+
+Current output:
+```js
+export const f = ({a}) => (x) => {
+  return {a: 3, x}
+}
+```
+
+Desired output:
+```js
+export const f = () => (x) => {
+  return {a: 3, x}
+}
+```
+## Variables re-defined locally should be ignored
+
+Input:
+```js
+var a = 1;
+function f(x) {
+  var a = 2;
+  return {a, x}
+}
+```
+
+Current output:
+```js
+export const f = ({a}) => (x) => {
+  var a = 2;
+  return {a, x}
+}
+```
+
+Desired output:
+```js
+export const f = ({}) => (x) => {
+  var a = 2;
+  return {a, x}
 }
 ```
