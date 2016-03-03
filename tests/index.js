@@ -20,7 +20,7 @@ function noIndent (str) {
 
 function check ({name, input, output}) {
   test(name , async t => {
-    const pure = purify(input)
+    const pure = purify(input, {noHeader: true})
     const a = noIndent(pure)
     const b = noIndent(output)
     if (a !== b) {
