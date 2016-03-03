@@ -48,7 +48,7 @@ lint: install
 
 test: install
 	echo "> Testing ..."
-	NODE_ENV=test $(BIN)/ava $(AVA_TARGET)
+	NODE_ENV=test $(BIN)/ava $(AVA_TARGET) -v
 
 test-watch: install
 	echo "> Testing forever ..."

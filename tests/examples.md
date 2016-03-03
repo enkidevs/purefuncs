@@ -174,6 +174,25 @@ export const foo = ({}) => (x, {y}, [z]) => {
 }
 ```
 
+## Variables re-defined locally should be ignored
+
+Input:
+```js
+var a = 1;
+function f(x) {
+  var a = 2;
+  return {a, x}
+}
+```
+
+Output:
+```js
+export const f = ({}) => (x) => {
+  var a = 2;
+  return {a, x}
+}
+```
+
 # Not Working Yet!
 
 Below is a list of examples of inputs for which the output is not
@@ -200,31 +219,5 @@ Desired output:
 ```js
 export const f = () => (x) => {
   return {a: 3, x}
-}
-```
-## Variables re-defined locally should be ignored
-
-Input:
-```js
-var a = 1;
-function f(x) {
-  var a = 2;
-  return {a, x}
-}
-```
-
-Current output:
-```js
-export const f = ({a}) => (x) => {
-  var a = 2;
-  return {a, x}
-}
-```
-
-Desired output:
-```js
-export const f = ({}) => (x) => {
-  var a = 2;
-  return {a, x}
 }
 ```
