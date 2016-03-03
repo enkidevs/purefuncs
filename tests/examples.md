@@ -193,6 +193,22 @@ export const f = ({}) => (x) => {
 }
 ```
 
+## Preserve defaults
+
+Input:
+```js
+function f(x = 1) {
+  return {x}
+}
+```
+
+Output:
+```js
+export const f = ({}) => (x = 1) => {
+  return {x}
+}
+```
+
 # Not Working Yet!
 
 Below is a list of examples of inputs for which the output is not
