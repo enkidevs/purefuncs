@@ -119,7 +119,7 @@ export default (inputCode, options = {}) => {
         }
       }
       if (isVarDeclaration(path)) {
-        if (depth === 3) {
+        if (depth <= 4) {
           topLevelDeclaration = variableName(path)
         }
         freeVariables.push({

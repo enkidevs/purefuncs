@@ -29,6 +29,23 @@ export const f = ({}) => (x) => {
 }
 ```
 
+## Exported Variable Function Declaration
+
+Input:
+```js
+export const f = function (x) {
+  return x;
+}
+```
+
+Output:
+```js
+export const f = ({}) => (x) => {
+  return x;
+}
+```
+
+
 ## Variable Arrow Function Declaration
 
 Input:
