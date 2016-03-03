@@ -117,6 +117,26 @@ export const foo = ({a, b, c, d}) => (x) => {
 }
 ```
 
+## Globals and Modules: Including Only Those Actually Used
+
+Input:
+```js
+import {a, b} from 'f1'
+import c from 'f2'
+const d = require('f3')
+
+function foo(x) {
+  return a + c + x;
+}
+```
+
+Output:
+```js
+export const foo = ({a, c}) => (x) => {
+  return a + c + x;
+}
+```
+
 ## Object and Array Arguments Deconstruction
 
 Input:
