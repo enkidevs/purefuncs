@@ -41,8 +41,10 @@ export default (inputCode, options = {}) => {
   function isCodePoint ({node}) {
     return node.type === 'FunctionDeclaration' ||
            node.type === 'ObjectMethod' ||
-          (node.type === 'VariableDeclarator' &&
-           node.init.type === 'FunctionExpression')
+          (node.type === 'VariableDeclarator' && (
+            node.init.type === 'FunctionExpression' ||
+            node.init.type === 'ArrowFunctionExpression'
+          ))
   }
 
   function codeForCodePoint (inputCode, {node}) {
@@ -51,10 +53,12 @@ export default (inputCode, options = {}) => {
     return inputCode.slice(body.start, body.end)
   }
 
-  function paramForCodePoint ({node}) {
+  function paramForCodePoint (inputCode, {node}) {
     const params = node.params ||
                    node.init.params
-    return params.map(({name}) => name)
+    return params.map((p) =>
+      inputCode.slice(p.start, p.end)
+    )
   }
 
   function isVarDeclaration ({node}) {
@@ -110,7 +114,7 @@ export default (inputCode, options = {}) => {
         result[id] = {
           path: id,
           code: codeForCodePoint(inputCode, path),
-          params: paramForCodePoint(path),
+          params: paramForCodePoint(inputCode, path),
           freeVars: freeVariables.slice()
         }
       }
