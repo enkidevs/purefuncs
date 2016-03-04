@@ -209,11 +209,6 @@ export const f = ({}) => (x = 1) => {
 }
 ```
 
-# Not Working Yet!
-
-Below is a list of examples of inputs for which the output is not
-yet the desired one.
-
 ## Object properties are sometimes confused with used variables
 
 Input:
@@ -224,16 +219,14 @@ function f(x) {
 }
 ```
 
-Current output:
+Output:
 ```js
-export const f = ({a}) => (x) => {
+export const f = ({}) => (x) => {
   return {a: 3, x}
 }
 ```
 
-Desired output:
-```js
-export const f = () => (x) => {
-  return {a: 3, x}
-}
-```
+# Not Working Yet!
+
+Below is a list of examples of inputs for which the output is not
+yet the desired one.

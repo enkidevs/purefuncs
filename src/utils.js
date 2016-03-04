@@ -43,6 +43,20 @@ export function isIdentifier ({node}) {
   return node.type === 'Identifier'
 }
 
+export function isObjectProperty ({node}) {
+  return node.type === 'ObjectProperty'
+}
+
+export function checkIdentifierOfObjectProperty ({node}) {
+  if (!node.shorthand && !node.computed && isIdentifier({node: node.key})) {
+    node.key.isNotReallyAnIdentifier = true
+  }
+}
+
+export function isNotReallyAnIdentifier ({node}) {
+  return node.isNotReallyAnIdentifier
+}
+
 export function pointName ({node}, topLevelDeclaration) {
   if (node.type === 'ObjectMethod') {
     return topLevelDeclaration + '$' + node.key.name

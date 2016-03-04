@@ -11,7 +11,10 @@ import {
   isIdentifier,
   pointName,
   variableName,
-  identifierName
+  identifierName,
+  isObjectProperty,
+  checkIdentifierOfObjectProperty,
+  isNotReallyAnIdentifier
 } from './utils'
 import dumpCode from './dumpCode'
 import externalVars from './externalVars'
@@ -79,11 +82,15 @@ export default (inputCode, options = {}) => {
         })
         return
       }
-      if (isIdentifier(path)) {
+      if (isIdentifier(path) && !isNotReallyAnIdentifier(path)) {
         usedVariables.push({
           varName: identifierName(path),
           usedIn: pathString(codePointHeap)
         })
+        return
+      }
+      if (isObjectProperty(path)) {
+        checkIdentifierOfObjectProperty(path)
         return
       }
     },
