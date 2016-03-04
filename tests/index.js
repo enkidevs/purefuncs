@@ -10,7 +10,7 @@ const examples =
     const name = block.split('\n')[0].trim()
     const bits = block.split('```')
     const input = bits[1].replace(/^js/, '')
-    const output = (bits[5] ? bits[5] : bits[3]).replace(/^js/, '')
+    const output = (bits[5] || bits[3]).replace(/^js/, '')
     return {name, input, output}
   })
 
