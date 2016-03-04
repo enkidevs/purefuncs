@@ -49,12 +49,12 @@ export function isObjectProperty ({node}) {
 
 export function checkIdentifierOfObjectProperty ({node}) {
   if (!node.shorthand && !node.computed && isIdentifier({node: node.key})) {
-    node.key.isNotReallyAnIdentifier = true
+    node.key.usedAsObjectKeyString = true
   }
 }
 
-export function isNotReallyAnIdentifier ({node}) {
-  return node.isNotReallyAnIdentifier
+export function isUsedAsObjectKeyString ({node}) {
+  return node.usedAsObjectKeyString
 }
 
 export function pointName ({node}, topLevelDeclaration) {
