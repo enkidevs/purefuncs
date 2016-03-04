@@ -174,34 +174,6 @@ export const foo = ({}) => (x, {y}, [z]) => {
 }
 ```
 
-# Not Working Yet!
-
-Below is a list of examples of inputs for which the output is not
-yet the desired one.
-
-## Object properties are sometimes confused with used variables
-
-Input:
-```js
-var a = 1;
-function f(x) {
-  return {a: 3, x}
-}
-```
-
-Current output:
-```js
-export const f = ({a}) => (x) => {
-  return {a: 3, x}
-}
-```
-
-Desired output:
-```js
-export const f = () => (x) => {
-  return {a: 3, x}
-}
-```
 ## Variables re-defined locally should be ignored
 
 Input:
@@ -213,18 +185,48 @@ function f(x) {
 }
 ```
 
-Current output:
-```js
-export const f = ({a}) => (x) => {
-  var a = 2;
-  return {a, x}
-}
-```
-
-Desired output:
+Output:
 ```js
 export const f = ({}) => (x) => {
   var a = 2;
   return {a, x}
 }
 ```
+
+## Preserve defaults
+
+Input:
+```js
+function f(x = 1) {
+  return {x}
+}
+```
+
+Output:
+```js
+export const f = ({}) => (x = 1) => {
+  return {x}
+}
+```
+
+## Object properties are sometimes confused with used variables
+
+Input:
+```js
+var a = 1;
+function f(x) {
+  return {a: 3, x}
+}
+```
+
+Output:
+```js
+export const f = ({}) => (x) => {
+  return {a: 3, x}
+}
+```
+
+# Not Working Yet!
+
+Below is a list of examples of inputs for which the output is not
+yet the desired one.
